@@ -14,4 +14,5 @@ class TestD(unittest.TestCase):
 
         result = dicer.d(n)
 
+        random.randint.assert_called_once_with(1, n)
         self.assertEqual(3, result)
