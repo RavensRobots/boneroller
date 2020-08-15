@@ -2,7 +2,7 @@ import dicer
 
 
 def greet():
-    return "Привет"
+    return "Привет, кинь кубик через команду /d6"
 
 
 def roll_a_dice(n):
