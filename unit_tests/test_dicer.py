@@ -1,7 +1,8 @@
-import dicer
 import random
 import unittest
 from unittest import mock
+
+import dicer
 
 
 class TestD(unittest.TestCase):
