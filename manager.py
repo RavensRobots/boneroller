@@ -6,5 +6,9 @@ def greet():
 
 
 def roll_a_dice(n):
-    if n>0:
+    if n > 0:
         return dicer.d(n)
+
+
+def get_error_message():
+    return "Неизвестная ошибка"

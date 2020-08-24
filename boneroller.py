@@ -1,9 +1,11 @@
-from telegram.ext import CommandHandler, Updater
-from bot_token import TOKEN
+from telegram.ext import CommandHandler, PicklePersistence, Updater
+
 import manager
+from bot_token import TOKEN
 
 
-updater = Updater(token=TOKEN, use_context=True)
+persistence = PicklePersistence(filename="bot_data/boneroller", single_file=False)
+updater = Updater(token=TOKEN, use_context=True, persistence=persistence)
 dispatcher = updater.dispatcher
 
 
@@ -11,12 +13,17 @@ def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=manager.greet())
 
 
-def bone6(update, context):
+def d6(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=manager.roll_a_dice(6))
 
 
-d6_handler = CommandHandler('d6', bone6)
-start_handler = CommandHandler('start', start)
-dispatcher.add_handler(d6_handler)
-dispatcher.add_handler(start_handler)
+def error(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text=manager.get_error_message())
+
+
+dispatcher.add_handler(CommandHandler('d6', d6))
+dispatcher.add_handler(CommandHandler('start', start))
+
+dispatcher.add_error_handler(error)
+
 updater.start_polling()
