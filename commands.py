@@ -1,3 +1,4 @@
+from telegram import InlineKeyboardButton
 from telegram.ext import CommandHandler
 
 import manager
@@ -24,4 +25,5 @@ def d6(update, context):
 
 
 def pig(update, context):
-    pass
+    if manager.is_game_running(update.effective_chat.id, "pig"):
+        keyboard = [InlineKeyboardButton()]
