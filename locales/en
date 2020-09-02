@@ -1,9 +1,0 @@
-{
-  "locale" : "EN",
-  "values" :
-  {
-    "make_a_turn" : "Make a turn",
-    "create_new" : "New game",
-    "game_pig" : "Current Pig game:"
-  }
-}

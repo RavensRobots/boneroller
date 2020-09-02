@@ -14,6 +14,9 @@ class Texter(object):
         logging.info("Установлена новая локализация: %s", locale)
         self.locale = locale
 
+    def get_locales(self):
+        return self.locales.keys()
+
     def get_text_for_label(self, label):
         logging.info("Получение текста для метки: %s", label)
         if self.locale in self.locales and label in self.locales[self.locale]:
