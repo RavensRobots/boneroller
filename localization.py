@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 
 
@@ -10,14 +11,19 @@ class Texter(object):
         self.locale = self.default_locale
 
     def set_locale(self, locale):
+        logging.info("Установлена новая локализация: %s", locale)
         self.locale = locale
 
     def get_text_for_label(self, label):
-        if self.locales[self.locale][label] != "":
+        logging.info("Получение текста для метки: %s", label)
+        if self.locale in self.locales and label in self.locales[self.locale]:
+            logging.info("Текст для текущей локализации: %s", self.locales[self.locale][label])
             return self.locales[self.locale][label]
-        elif self.locales[self.default_locale][label] != "":
+        elif self.default_locale in self.locales and label in self.locales[self.default_locale]:
+            logging.info("Текст для локализации по умолчанию: %s", self.locales[self.default_locale][label])
             return self.locales[self.default_locale][label]
         else:
+            logging.warning("Отсутствует текст для метки %s", label)
             return "UNDEFINED"
 
 
