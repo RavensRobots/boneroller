@@ -7,6 +7,10 @@
     "game_pig" : "Current Pig game:",
     "choose_lang" : "Choose a language:",
     "lang_changed" : "Language is changed on {}",
+    "join_a_game" : "Join",
+    "game_created" : "Pig game created",
+    "players" : "Players: ",
+    "no_pig_game" : "No Pig game in this chat",
     "EN" : "English",
     "RU" : "Русский"
   }
