@@ -1,0 +1,13 @@
+{
+  "locale" : "EN",
+  "values" :
+  {
+    "make_a_turn" : "Make a turn",
+    "create_new" : "New game",
+    "game_pig" : "Current Pig game:",
+    "choose_lang" : "Choose a language:",
+    "lang_changed" : "Language is changed on {}",
+    "EN" : "English",
+    "RU" : "Русский"
+  }
+}

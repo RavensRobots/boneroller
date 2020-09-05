@@ -1,0 +1,11 @@
+{
+  "locale" : "RU",
+  "values" :
+  {
+    "make_a_turn" : "Сделать ход",
+    "create_new" : "Новая игра",
+    "game_pig" : "Текущая игра 'Свин':",
+    "choose_lang" : "Выберите язык:",
+    "lang_changed" : "Язык изменен на {}"
+  }
+}
