@@ -14,20 +14,16 @@ def button(update, context):
     query = update.callback_query
     query.answer()
     logging.info("Нажата кнопка, информация о нажатии: %s", query.data)
+    chat_id = update.effective_chat.id
     data, details, user_id = query.data.split("#")
     result = ""
     if data == "lang":
         result = manager.set_language(user_id, details)
-    query.edit_message_text(text=result)
+    elif data == "pig_new_game":
+        result = manager.new_pig_game(details, user_id)
+    context.bot.send_message(chat_id=chat_id, text=result)
 
 
-# def pig(update, context):
-#     logging.info("Получена команда \\pig")
-#     user_id = update.effective_message.from_user.id
-#     chat_id = update.effective_chat.id
-#     if manager.is_game_running(chat_id, "pig"):
-#         keyboard = [[InlineKeyboardButton(tr("make_a_turn"), callback_data="turn")],
-#                     [InlineKeyboardButton(tr("create_new"), callback_data="new_game")]]
-#         message = manager.get_game_info(chat_id, "pig")
-#         reply_markup = InlineKeyboardMarkup(keyboard)
-#         context.bot.send_message(chat_id=update.effective_chat.id, text=message, reply_markup=reply_markup)
+# callback_data_turn = "pig_turn#" + str(chat_id) + "#" + str(user_id)
+# callback_data_new_game = "pig_new_game#" + str(chat_id) + "#" + str(user_id)
+# callback_data_join = "pig_join#" + str(chat_id) + "#" + str(user_id)
