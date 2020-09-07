@@ -58,7 +58,7 @@ class PigGame(object):
 
         if uid not in self.players:
             logging.warning("Игрок {} не является участником игры".format(uid))
-            return
+            raise gexp.PlayerNotInGame
 
         del self.players[uid]
         if self.current_player == uid:
@@ -77,6 +77,24 @@ class PigGame(object):
         self.queue.remove(uid)
         if uid in self.players_above:
             self.players_above.remove(uid)
+        if len(self.queue) == 1 and self.started:
+            raise gexp.PlayerWin(self.queue[0])
+
+    def end_turn(self, user):
+        uid = str(user.id)
+        logging.info("Игрок {} завершает ход".format(uid))
+
+        if not self.started:
+            logging.warning("Ход не может быть завершен, игра не начата")
+            raise gexp.GameNotStarted
+
+        if uid not in self.players:
+            logging.warning("Игрок {} не является участником игры".format(uid))
+            raise gexp.PlayerNotInGame
+
+        if self.current_player != uid:
+            logging.warning("Игрок {} не является текущим".format(uid))
+            raise gexp.PlayerNotCurrent
 
     def info(self):
         logging.info("Формирование информации об игре")
