@@ -30,11 +30,8 @@ class PigGame(object):
     def __init__(self, user):
         uid = str(user.id)
         self.started = False
-        self.players = {uid: Player(get_name(user))}
         self.queue = [uid]
-        self.current_player = uid
-        self.current_score = 0
-        self.players_above = []
+        self.players = {uid: Player(get_name(user))}
 
     def join(self, user):
         uid = str(user.id)
@@ -47,10 +44,8 @@ class PigGame(object):
             logging.warning("Игрок {} уже присоединился к этой игре".format(uid))
             raise gexp.AlreadyJoined
 
-        self.players[uid] = Player(get_name(user))
         self.queue.append(uid)
-        if self.current_player is None:
-            self.current_player = uid
+        self.players[uid] = Player(get_name(user))
 
     def left(self, user):
         uid = str(user.id)
@@ -60,25 +55,26 @@ class PigGame(object):
             logging.warning("Игрок {} не является участником игры".format(uid))
             raise gexp.PlayerNotInGame
 
-        del self.players[uid]
-        if self.current_player == uid:
-            if len(self.queue) < 2:
-                self.current_player = None
-            else:
-                next_index = 1
-                for pl in self.queue:
-                    if next_index == len(self.queue):
-                        next_index = 0
-                    next_pl = self.queue[next_index]
-                    if pl == uid:
-                        self.current_player = next_pl
-                        break
-                    next_index += 1
         self.queue.remove(uid)
-        if uid in self.players_above:
-            self.players_above.remove(uid)
+        del self.players[uid]
+        for pl in self.queue:
+            if uid in self.players[pl].players_above:
+                self.players[pl].players_above.remove(uid)
         if len(self.queue) == 1 and self.started:
             raise gexp.PlayerWin(self.queue[0])
+
+    def start(self):
+        logging.info("Игрок запускает игру")
+
+        if self.started:
+            logging.warning("Игра уже запущена")
+            raise gexp.GameStarted
+
+        if len(self.queue) < 2:
+            logging.warning("Недостаточно игроков")
+            raise gexp.NotEnoughPlayers
+
+        self.started = True
 
     def end_turn(self, user):
         uid = str(user.id)
@@ -92,9 +88,27 @@ class PigGame(object):
             logging.warning("Игрок {} не является участником игры".format(uid))
             raise gexp.PlayerNotInGame
 
-        if self.current_player != uid:
+        if self.queue[0] != uid:
             logging.warning("Игрок {} не является текущим".format(uid))
             raise gexp.PlayerNotCurrent
+
+        self.queue.remove(uid)
+        self.queue.append(uid)
+
+        if self.players[uid].score == 0:
+            for pl in self.queue:
+                if uid != pl and self.players[pl].score == 0:
+                    self.players[pl].players_above.append(uid)
+
+        if self.players[uid].current_score == 0:
+            self.players[uid].score += 3
+            raise gexp.PlayerIsNotRisking
+
+        self.players[uid].score += self.players[uid].current_score
+        self.players[uid].current_score = 0
+
+        if self.players[uid].score > 100:
+            raise gexp.PlayerWin(uid)
 
     def info(self):
         logging.info("Формирование информации об игре")
@@ -109,7 +123,8 @@ class Player(object):
     def __init__(self, name):
         self.name = name
         self.score = 0
-        self.priority = 0
+        self.current_score = 0
+        self.players_above = []
 
 
 def get_name(user):

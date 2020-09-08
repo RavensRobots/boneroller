@@ -18,7 +18,11 @@ class PlayerNotCurrent(Exception):
     pass
 
 
-class PlayerHas0(Exception):
+class PlayerIsNotRisking(Exception):
+    pass
+
+
+class NotEnoughPlayers(Exception):
     pass
 
 
