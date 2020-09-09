@@ -1,5 +1,6 @@
 import logging
 
+import dicer
 import game_exception as gexp
 from localization import tr
 
@@ -9,10 +10,9 @@ class PigManager(object):
     def __init__(self):
         self.games = {}
 
-    def new_game(self, chat_id, user_id):
+    def new_game(self, chat, user):
         logging.info("Создание игры")
-        self.games[chat_id] = PigGame()
-        self.games[chat_id].join(user_id)
+        self.games[chat.id] = PigGame(user)
 
     def is_game_running(self, chat_id):
         logging.info("Проверка запущенной игры")
@@ -110,11 +110,39 @@ class PigGame(object):
         if self.players[uid].score > 100:
             raise gexp.PlayerWin(uid)
 
+    def roll(self, user):
+        uid = str(user.id)
+        logging.info("Игрок {} бросает кубик".format(uid))
+
+        if not self.started:
+            logging.warning("Игрок не может ходить, игра не начата")
+            raise gexp.GameNotStarted
+
+        if uid not in self.players:
+            logging.warning("Игрок {} не является участником игры".format(uid))
+            raise gexp.PlayerNotInGame
+
+        if self.queue[0] != uid:
+            logging.warning("Игрок {} не является текущим".format(uid))
+            raise gexp.PlayerNotCurrent
+
+        roll_result = dicer.d(6)
+        if roll_result > 1:
+            self.players[uid].current_score += roll_result
+
     def info(self):
-        logging.info("Формирование информации об игре")
-        message = tr("players") + "\n"
-        for player in self.players:
-            message = message + player + "\n"
+        message = tr("game_pig") + "\n"
+        message += tr("started") if self.started else tr("not_started")
+
+        message += tr("players") + "\n"
+        sorted_queue = sorted(self.queue, key=lambda player: self.players[player].score, reverse=True)
+        for pl in sorted_queue:
+            message += self.players[pl].name + " - " + str(self.players[pl].score) + "\n"
+
+        message += tr("current_player") + "\n"
+        message += self.players[self.queue[0]].name + str(self.players[self.queue[0]].score) + "\n"
+        message += tr("current_score") + str(self.players[self.queue[0]].current_score)
+
         return message
 
 

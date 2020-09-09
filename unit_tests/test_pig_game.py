@@ -1,7 +1,9 @@
 import unittest
+from unittest import mock
 
-import pig
+import dicer
 import game_exception as gexp
+import pig
 
 
 class TestJoin(unittest.TestCase):
@@ -559,4 +561,43 @@ class TestEndTurn(unittest.TestCase):
         self.assertEqual(game.players[user_id].name, self.user.username)
         self.assertEqual(game.players[user_id].score, score + current_score)
         self.assertEqual(game.players[user_id].current_score, 0)
+        self.assertEqual(len(game.players[user_id].players_above), 0)
+
+
+class TestRoll(unittest.TestCase):
+
+    def setUp(self):
+        class User(object):
+            pass
+        self.user = User()
+        self.user2 = User()
+        self.user3 = User()
+
+    def test_roll_n(self):
+        self.user.id = 123456
+        user_id = str(self.user.id)
+        self.user.username = "user_name"
+        game = pig.PigGame(self.user)
+
+        game.started = True
+
+        score = 30
+        current_score = 7
+        game.players[user_id].score = score
+        game.players[user_id].current_score = current_score
+
+        dicer.d = mock.MagicMock()
+        roll_result = 3
+        dicer.d.return_value = roll_result
+
+        game.roll(self.user)
+
+        dicer.d.assert_called_once_with(6)
+
+        self.assertTrue(game.started)
+        self.assertEqual(game.queue, [user_id])
+
+        self.assertEqual(game.players[user_id].name, self.user.username)
+        self.assertEqual(game.players[user_id].score, score)
+        self.assertEqual(game.players[user_id].current_score, current_score + roll_result)
         self.assertEqual(len(game.players[user_id].players_above), 0)

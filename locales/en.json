@@ -2,16 +2,16 @@
   "locale" : "EN",
   "values" :
   {
-    "make_a_turn" : "Make a turn",
-    "create_new" : "New game",
-    "game_pig" : "Current Pig game:",
-    "choose_lang" : "Choose a language:",
-    "lang_changed" : "Language is changed on {}",
-    "join_a_game" : "Join",
-    "game_created" : "Pig game created",
-    "players" : "Players: ",
-    "no_pig_game" : "No Pig game in this chat",
     "EN" : "English",
-    "RU" : "Русский"
+    "RU" : "Русский",
+    "choose_lang" : "Choose a language:",
+    "create_new" : "New game",
+    "game_created" : "Pig game created",
+    "game_pig" : "Current Pig game:",
+    "join_a_game" : "Join",
+    "lang_changed" : "Language is changed on {}",
+    "make_a_turn" : "Make a turn",
+    "no_pig_game" : "No Pig game in this chat",
+    "players" : "Players: "
   }
 }
