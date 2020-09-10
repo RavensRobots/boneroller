@@ -2,10 +2,17 @@
   "locale" : "RU",
   "values" :
   {
-    "make_a_turn" : "Сделать ход",
-    "create_new" : "Новая игра",
-    "game_pig" : "Текущая игра 'Свин':",
     "choose_lang" : "Выберите язык:",
-    "lang_changed" : "Язык изменен на {}"
+    "create_new" : "Новая игра",
+    "current_player" : "Текущий игрок",
+    "current_score" : "Текущие очки",
+    "game_created" : "Создана игра 'Cвин'",
+    "game_pig" : "Текущая игра 'Свин':",
+    "join_a_game" : "Присоединиться",
+    "lang_changed" : "Язык изменен на {}",
+    "make_a_turn" : "Сделать ход",
+    "no_pig_game" : "В этом чате нет запущенной игры 'Свин'",
+    "not_started" : "не начата",
+    "players" : "Игроки:"
   }
 }

@@ -6,12 +6,18 @@
     "RU" : "Русский",
     "choose_lang" : "Choose a language:",
     "create_new" : "New game",
+    "current_player" : "Current player",
+    "current_score" : "Current score",
     "game_created" : "Pig game created",
     "game_pig" : "Current Pig game:",
     "join_a_game" : "Join",
     "lang_changed" : "Language is changed on {}",
+    "leave_a_game" : "Leave",
     "make_a_turn" : "Make a turn",
     "no_pig_game" : "No Pig game in this chat",
-    "players" : "Players: "
+    "not_started" : "not started",
+    "players" : "Players: ",
+    "start_a_game" : "Start",
+    "stop_a_game" : "Stop"
   }
 }

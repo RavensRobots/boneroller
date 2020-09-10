@@ -26,6 +26,10 @@ class NotEnoughPlayers(Exception):
     pass
 
 
+class FailedRoll(Exception):
+    pass
+
+
 class PlayerWin(Exception):
 
     def __init__(self, winner):

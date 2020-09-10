@@ -601,3 +601,57 @@ class TestRoll(unittest.TestCase):
         self.assertEqual(game.players[user_id].score, score)
         self.assertEqual(game.players[user_id].current_score, current_score + roll_result)
         self.assertEqual(len(game.players[user_id].players_above), 0)
+
+    def test_roll_1(self):
+        self.user.id = 123456
+        user_id = str(self.user.id)
+        self.user.username = "user_name"
+        game = pig.PigGame(self.user)
+
+        self.user2.id = 234567
+        user_id2 = str(self.user2.id)
+        self.user2.username = "user_name2"
+        game.join(self.user2)
+
+        self.user3.id = 345678
+        user_id3 = str(self.user3.id)
+        self.user3.username = "user_name3"
+        game.join(self.user3)
+
+        score1 = 10
+        game.players[user_id].score = score1
+        score2 = 8
+        game.players[user_id2].score = score2
+        current_score = 6
+        game.players[user_id3].current_score = current_score
+        game.players[user_id2].players_above = [user_id]
+        game.players[user_id3].players_above = [user_id, user_id2]
+        game.queue = [user_id3, user_id, user_id2]
+        game.start()
+
+        dicer.d = mock.MagicMock()
+        roll_result = 1
+        dicer.d.return_value = roll_result
+
+        with self.assertRaises(gexp.FailedRoll):
+            game.roll(self.user3)
+
+        dicer.d.assert_called_once_with(6)
+
+        self.assertTrue(game.started)
+        self.assertEqual(game.queue, [user_id, user_id2, user_id3])
+
+        self.assertEqual(game.players[user_id].name, self.user.username)
+        self.assertEqual(game.players[user_id].score, score1)
+        self.assertEqual(game.players[user_id].current_score, 0)
+        self.assertEqual(len(game.players[user_id].players_above), 0)
+
+        self.assertEqual(game.players[user_id2].name, self.user2.username)
+        self.assertEqual(game.players[user_id2].score, score2)
+        self.assertEqual(game.players[user_id2].current_score, 0)
+        self.assertEqual(game.players[user_id2].players_above, [user_id])
+
+        self.assertEqual(game.players[user_id3].name, self.user3.username)
+        self.assertEqual(game.players[user_id3].score, 0)
+        self.assertEqual(game.players[user_id3].current_score, 0)
+        self.assertEqual(game.players[user_id3].players_above, [user_id, user_id2])

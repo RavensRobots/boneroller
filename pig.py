@@ -12,17 +12,17 @@ class PigManager(object):
 
     def new_game(self, chat, user):
         logging.info("Создание игры")
-        self.games[chat.id] = PigGame(user)
+        self.games[str(chat.id)] = PigGame(user)
 
-    def is_game_running(self, chat_id):
-        logging.info("Проверка запущенной игры")
-        if str(chat_id) in self.games:
-            return True
-        else:
-            return False
+    def is_game_running(self, chat):
+        cid = str(chat.id)
+        logging.info("Проверка созданной игры в чате {}".format(cid))
+        return cid in self.games and not self.games[cid].started
 
-    def get_info(self, chat_id):
-        return self.games[str(chat_id)].info()
+    def get_info(self, chat):
+        if str(chat.id) in self.games:
+            return self.games[str(chat.id)].info()
+        return "mda"
 
 
 class PigGame(object):
@@ -129,6 +129,11 @@ class PigGame(object):
         roll_result = dicer.d(6)
         if roll_result > 1:
             self.players[uid].current_score += roll_result
+        else:
+            self.players[uid].current_score = 0
+            self.queue.remove(uid)
+            self.queue.append(uid)
+            raise gexp.FailedRoll
 
     def info(self):
         message = tr("game_pig") + "\n"
@@ -140,8 +145,8 @@ class PigGame(object):
             message += self.players[pl].name + " - " + str(self.players[pl].score) + "\n"
 
         message += tr("current_player") + "\n"
-        message += self.players[self.queue[0]].name + str(self.players[self.queue[0]].score) + "\n"
-        message += tr("current_score") + str(self.players[self.queue[0]].current_score)
+        message += self.players[self.queue[0]].name + " - " + str(self.players[self.queue[0]].score) + "\n"
+        message += tr("current_score") + " - " + str(self.players[self.queue[0]].current_score)
 
         return message
 

@@ -11,10 +11,15 @@ def get_error_message():
     return tr("error")
 
 
-def get_game_info(chat_id, game):
+def get_game_info(chat, game):
     if game == "pig":
-        return pig.get_info(chat_id)
-    return tr("game_pig")
+        return pig.get_info(chat)
+    return pig.get_info(chat)
+
+
+def join_a_game(chat, user, game):
+    if game == "pig":
+        pass
 
 
 def greet():
@@ -22,17 +27,14 @@ def greet():
     return tr("greetings")
 
 
-def is_game_running(chat_id, game):
-    logging.info("Проверка того, запущена ли игра %s в чате %s", game, chat_id)
-    if game == "pig" and pig.is_game_running(chat_id):
-        return True
-    return False
+def is_game_running(chat, game):
+    logging.info("Проверка того, запущена ли игра %s в чате %s", game, str(chat.id))
+    return game == "pig" and pig.is_game_running(chat)
 
 
-def new_pig_game(chat_id, user_id):
-    logging.info("Создание новой игры 'Свин', чат: {}, создатель: {}".format(chat_id, user_id))
-    pig.new_game(chat_id, user_id)
-    return tr("game_created")
+def new_pig_game(chat, user):
+    logging.info("Создание новой игры 'Свин', чат: {}, создатель: {}".format(str(chat.id), str(user.id)))
+    pig.new_game(chat, user)
 
 
 def roll_a_dice(n):
