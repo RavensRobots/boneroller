@@ -1,4 +1,5 @@
 import logging
+from telegram import InlineKeyboardButton
 
 import dicer
 import game_exception as gexp
@@ -9,6 +10,19 @@ class PigManager(object):
 
     def __init__(self):
         self.games = {}
+
+    def get_game(self, chat, user):
+        cid = str(chat.id)
+        logging.info("Проверяем наличие игры в чате {}".format(cid))
+        if cid not in self.games:
+            logging.info("В этом чате нет игры")
+            text = tr("no_pig_game")
+            callback_data_create_game = "pig_create#"
+            keyboard = [[InlineKeyboardButton(tr("create_new"), callback_data=callback_data_create_game)]]
+            return text, keyboard
+        else:
+            logging.info("Игра найдена")
+            pass
 
     def new_game(self, chat, user):
         logging.info("Создание игры")

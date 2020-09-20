@@ -5,6 +5,7 @@
     "EN" : "English",
     "RU" : "Русский",
     "choose_lang" : "Choose a language:",
+    "command_for_group" : "This command works only in groups",
     "create_new" : "New game",
     "current_player" : "Current player",
     "current_score" : "Current score",

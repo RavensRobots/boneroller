@@ -2,7 +2,7 @@ import logging
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import CallbackQueryHandler
 
-import manager
+import operator
 from localization import texter, tr
 
 
@@ -22,9 +22,9 @@ def button(update, context):
     uid = str(user.id)
     data, details = query.data.split("#")
     if data == "lang":
-        context.bot.send_message(chat_id=cid, text=manager.set_language(uid, details))
+        context.bot.send_message(chat_id=cid, text=operator.set_language(uid, details))
     elif data == "pig_create":
-        manager.new_pig_game(chat, user)
+        operator.new_pig_game(chat, user)
         query.message.reply_markup = []
         callback_data_start_game = "pig_start#"
         callback_data_join = "pig_join#"
@@ -35,7 +35,7 @@ def button(update, context):
                     [InlineKeyboardButton(tr("leave_a_game"), callback_data=callback_data_leave)],
                     [InlineKeyboardButton(tr("stop_a_game"), callback_data=callback_data_stop)]]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        context.bot.send_message(chat_id=cid, text=manager.get_game_info(chat, "pig"), reply_markup=reply_markup)
+        context.bot.send_message(chat_id=cid, text=operator.get_game_info(chat, "pig"), reply_markup=reply_markup)
     elif data == "pig_join":
         pass
 

@@ -11,6 +11,14 @@ def get_error_message():
     return tr("error")
 
 
+def get_game(chat, user, game):
+    logging.info("Получаем игру {} в чате {}, инициатор: {}".format(game, str(chat.id), str(user.id)))
+    if game == "pig":
+        return pig.get_game(chat, user)
+    else:
+        return "", []
+
+
 def get_game_info(chat, game):
     if game == "pig":
         return pig.get_info(chat)
