@@ -2,16 +2,28 @@
   "locale" : "EN",
   "values" :
   {
-    "make_a_turn" : "Make a turn",
-    "create_new" : "New game",
-    "game_pig" : "Current Pig game:",
-    "choose_lang" : "Choose a language:",
-    "lang_changed" : "Language is changed on {}",
-    "join_a_game" : "Join",
-    "game_created" : "Pig game created",
-    "players" : "Players: ",
-    "no_pig_game" : "No Pig game in this chat",
     "EN" : "English",
-    "RU" : "Русский"
+    "RU" : "Русский",
+    "choose_lang" : "Choose a language:",
+    "command_for_group" : "This command works only in groups",
+    "create_new" : "New game",
+    "current_player" : "current player",
+    "current_score" : "current score",
+    "failed_roll" : "Roll failed!",
+    "game_created" : "Pig game created",
+    "game_pig" : "Current Pig game:",
+    "game_started" : "Game started",
+    "join_a_game" : "Join",
+    "lang_changed" : "Language is changed on {}",
+    "leave_a_game" : "Leave",
+    "make_a_turn" : "Make a turn",
+    "no_pig_game" : "No Pig game in this chat",
+    "not_started" : "not started",
+    "player_win" : "Player {} win!",
+    "players" : "players",
+    "roll_a_dice" : "Roll a dice",
+    "score" : "score",
+    "start_a_game" : "Start",
+    "stop_a_game" : "Stop"
   }
 }
