@@ -11,7 +11,7 @@ class Texter(object):
         self.locale = self.default_locale
 
     def set_locale(self, locale):
-        logging.info("Установлена новая локализация: %s", locale)
+        logging.info("Будет использована локализация: %s", locale)
         self.locale = locale
 
     def get_locales(self):
@@ -29,6 +29,22 @@ class Texter(object):
             logging.error("Отсутствует текст для метки %s", label)
             return "UNDEFINED"
 
+    def update_locale(self, user, user_data):
+        if "language" in user_data:
+            locale = user_data["language"]
+            logging.info("Пользователь имеет уже установленную локализацию: %s", locale)
+            self.set_locale(locale)
+        elif hasattr(user, "language_code"):
+            locale = locale_simplify(user.language_code)
+            logging.info("Локализация пользователя из user_data: %s", locale)
+            if locale in self.locales:
+                user_data["language"] = locale
+                self.set_locale(locale)
+            else:
+                logging.warning("Отсутствует локализация: %s", locale)
+        else:
+            self.set_locale(self.default_locale)
+
 
 def load_locales(directory):
     result = {}
@@ -41,5 +57,13 @@ def load_locales(directory):
     return result
 
 
+def locale_simplify(locale):
+    if locale == "en-US" or locale == "en-GB":
+        return "en"
+    else:
+        return locale
+
+
 texter = Texter()
 tr = texter.get_text_for_label
+ul = texter.update_locale
