@@ -1,26 +1,15 @@
 # Boneroller
+[English](#boneroller-(english))
 
-[click on this link](#boneroller7)
+Boneroller - бот для мессенджера Telegram, который кидает кости.
 
-# Boneroller1
+Бот написан на языке Python при помощи библиотеки python-telegram-bot. Он работает в
+ inline-формате, позволяя в любом чате бросить кость и сразу отправить результат.
 
-[click on this link](#boneroller1)
+# Boneroller (english)
 
-# Boneroller2
+Boneroller is a bot for the Telegram messenger that rolls the dices.
 
-[click on this link](#boneroller2)
-# Boneroller3
-
-[click on this link](#boneroller3)
-# Boneroller4
-
-[click on this link](#boneroller4)
-# Boneroller5
-
-[click on this link](#boneroller5)
-# Boneroller6
-
-[click on this link](#boneroller6)
-# Boneroller7
-
-[click on this link](#boneroller)
+The bot is written in Python using the python-telegram-bot library. He works in
+  inline format, allowing you to roll the dice in any chat and immediately send the result
+  to this chat.

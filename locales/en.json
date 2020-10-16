@@ -1,17 +1,28 @@
 {
-  "locale" : "EN",
+  "locale" : "en",
   "values" :
   {
-    "make_a_turn" : "Make a turn",
-    "create_new" : "New game",
-    "game_pig" : "Current Pig game:",
-    "choose_lang" : "Choose a language:",
-    "lang_changed" : "Language is changed on {}",
-    "join_a_game" : "Join",
-    "game_created" : "Pig game created",
-    "players" : "Players: ",
-    "no_pig_game" : "No Pig game in this chat",
-    "EN" : "English",
-    "RU" : "Русский"
+    "start_message" : "Hi! \nI'm Boneroller, a dice-rolling bot. You can roll dices through the inline keyboard. Type @boneroller_bot and you will see the options available. \nI also understand commands: \n - /start - displays this message \n - /help - displays more detailed information \n - /language - allows you to change the language \n - /credits - displays information about the creator",
+    "help_message" : "To roll a dice, type @boneroller_bot in the input field and select the dice you want to roll. The result will be sent to the current chat immediately. \nAvailable commands: \n - /start - displays a welcome message \n - /help - displays this message \n - /language - allows you to change the language \n - /credits - information about the creator",
+    "credits_message" : "The author of the bot is Yukio Raven.\nContacts for communication:\ntelegram: @yukioraven",
+    "language_message" : "Choose language:",
+    "language_set" : "Language set!",
+    "roll" : "{}-side dice roll: ",
+    "roll_4" : "d4",
+    "roll_6" : "d6",
+    "roll_8" : "d8",
+    "roll_10" : "d10",
+    "roll_12" : "d12",
+    "roll_20" : "d20",
+    "roll_100" : "d100",
+    "roll_4_descr" : "4-side dice roll",
+    "roll_6_descr" : "6-side dice roll",
+    "roll_8_descr" : "8-side dice roll",
+    "roll_10_descr" : "10-side dice roll",
+    "roll_12_descr" : "12-side dice roll",
+    "roll_20_descr" : "20-side dice roll",
+    "roll_100_descr" : "Two 10-side dices roll",
+    "en" : "English",
+    "ru" : "Русский"
   }
 }
