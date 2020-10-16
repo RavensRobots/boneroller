@@ -7,7 +7,7 @@ class Texter(object):
 
     def __init__(self):
         self.locales = load_locales("locales")
-        self.default_locale = "EN"
+        self.default_locale = "en"
         self.locale = self.default_locale
 
     def set_locale(self, locale):
@@ -43,6 +43,7 @@ class Texter(object):
             else:
                 logging.warning("Отсутствует локализация: %s", locale)
         else:
+            user_data["language"] = self.default_locale
             self.set_locale(self.default_locale)
 
 
