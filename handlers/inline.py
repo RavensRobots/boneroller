@@ -4,7 +4,7 @@ from telegram.ext import InlineQueryHandler
 from uuid import uuid4
 
 import interface_layout as il
-from localization import tr
+from localization import tr, ul
 
 
 def init_handlers(dispatcher):
@@ -13,6 +13,7 @@ def init_handlers(dispatcher):
 
 
 def inline_handler(update, context):
+    ul(update.effective_user, context.user_data)
     options = [
         InlineQueryResultArticle(
             id=uuid4(),

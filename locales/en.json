@@ -3,7 +3,7 @@
   "values" :
   {
     "start_message" : "Hi! \nI'm Boneroller, a dice-rolling bot. You can roll dices through the inline keyboard. Type @boneroller_bot and you will see the options available. \nI also understand commands: \n - /start - displays this message \n - /help - displays more detailed information \n - /language - allows you to change the language \n - /credits - displays information about the creator",
-    "help_message" : "To roll a dice, type @boneroller in the input field and select the dice you want to roll. The result will be sent to the current chat immediately. \nAvailable commands: \n - /start - displays a welcome message \n - /help - displays this message \n - /language - allows you to change the language \n - /credits - information about the creator",
+    "help_message" : "To roll a dice, type @boneroller_bot in the input field and select the dice you want to roll. The result will be sent to the current chat immediately. \nAvailable commands: \n - /start - displays a welcome message \n - /help - displays this message \n - /language - allows you to change the language \n - /credits - information about the creator",
     "credits_message" : "The author of the bot is Yukio Raven.\nContacts for communication:\ntelegram: @yukioraven",
     "language_message" : "Choose language:",
     "language_set" : "Language set!",
